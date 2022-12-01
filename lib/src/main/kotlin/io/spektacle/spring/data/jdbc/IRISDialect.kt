@@ -5,8 +5,38 @@ package io.spektacle.spring.data.jdbc
 
 import org.springframework.data.relational.core.dialect.AnsiDialect
 import org.springframework.data.relational.core.dialect.ArrayColumns
+import org.springframework.data.relational.core.dialect.LimitClause
+import org.springframework.data.util.Lazy
+
 
 class IRISDialect : AnsiDialect() {
+
+
+    private val selectRenderContext = Lazy.of {
+        IRISSelectRenderContext(afterFromTable, afterOrderBy)
+    }
+
+    override fun limit(): LimitClause {
+        return LIMIT_CLAUSE
+    }
+
+    object LIMIT_CLAUSE : LimitClause {
+        override fun getLimit(limit: Long): String {
+            return ""
+        }
+
+        override fun getOffset(offset: Long): String {
+            return ""
+        }
+
+        override fun getLimitOffset(limit: Long, offset: Long): String {
+            return ""
+        }
+
+        override fun getClausePosition(): LimitClause.Position {
+            return LimitClause.Position.AFTER_ORDER_BY
+        }
+    }
 
     override fun getArraySupport(): ArrayColumns {
         return ArrayColumns.Unsupported.INSTANCE
@@ -15,4 +45,5 @@ class IRISDialect : AnsiDialect() {
     companion object {
         val INSTANCE: IRISDialect = IRISDialect()
     }
+
 }
