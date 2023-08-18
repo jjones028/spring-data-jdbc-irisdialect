@@ -31,9 +31,9 @@ publishing {
         maven {
             name = "github"
             url = uri("https://maven.pkg.github.com/jjones028/pkgs")
-            credentials(PasswordCredentials::class)
-            authentication {
-                create<BasicAuthentication>("basic")
+            credentials {
+                username = project.findProperty("pkgsUsername") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("pkgsPassword") as String? ?: System.getenv("TOKEN")
             }
         }
     }
