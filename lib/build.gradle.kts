@@ -17,7 +17,7 @@ plugins {
 }
 
 group = "io.spektacle.spring.data.jdbc"
-version = "1.0.6"
+version = "1.0.7"
 
 publishing {
     publications {
@@ -32,8 +32,8 @@ publishing {
             name = "github"
             url = uri("https://maven.pkg.github.com/jjones028/pkgs")
             credentials {
-                username = project.findProperty("pkgsUsername") as String? ?: System.getenv("USERNAME")
-                password = project.findProperty("pkgsPassword") as String? ?: System.getenv("TOKEN")
+                username = project.findProperty("githubUsername") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("githubPassword") as String? ?: System.getenv("TOKEN")
             }
         }
     }
