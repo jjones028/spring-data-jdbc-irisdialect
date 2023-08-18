@@ -17,7 +17,7 @@ plugins {
 }
 
 group = "io.spektacle.spring.data.jdbc"
-version = "1.0.7"
+version = "1.0.8"
 
 publishing {
     publications {
