@@ -5,6 +5,7 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/7.4/userguide/building_java_projects.html
  */
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "2.7.3"
@@ -28,9 +29,8 @@ publishing {
 
     repositories {
         maven {
-            name = "ioSpektacle"
-            url = uri("http://localhost/releases")
-            isAllowInsecureProtocol = true
+            name = "github"
+            url = uri("https://maven.pkg.github.com/jjones028/pkgs")
             credentials(PasswordCredentials::class)
             authentication {
                 create<BasicAuthentication>("basic")
@@ -49,4 +49,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+tasks.getByName<BootJar>("bootJar") {
+    enabled = false
 }
